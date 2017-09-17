@@ -3,19 +3,19 @@
 <nav id="paging">
 	<ul class="pagination">
 	<li>
-	  <a href="${search}${startPage}" aria-label="Previous">
+	  <a href="${search}${pagingVO.startPage}" aria-label="Previous">
         <span aria-hidden="true">&laquo;</span>
       </a>
     </li>  
-	<c:if test="${endPage > pageCount}">
-		<c:set value="${endPage = pageCount}" var="endPage"/>
+	<c:if test="${pagingVO.endPage > pagingVO.pageCount}">
+		<c:set value="${pagingVO.endPage = pagingVO.pageCount}" var="pagingVO.endPage"/>
 	</c:if>
-	<c:if test="${startPage > pageBlock}">
-		 <li><a href="${search}${startPage-1}">이전</a></li>
+	<c:if test="${pagingVO.startPage > pagingVO.pageBlock}">
+		 <li><a href="${search}${pagingVO.startPage-1}">이전</a></li>
 	</c:if>
-	<c:forEach var="i" begin="${startPage}" end="${endPage}"> 
+	<c:forEach var="i" begin="${pagingVO.startPage}" end="${pagingVO.endPage}"> 
 		<c:choose>
-			<c:when test="${pageNum == i}">
+			<c:when test="${pagingVO.pageNum == i}">
 				<li class="active"><a href="#">${i}<span class="sr-only">(current)</span></a></li>
 			</c:when>
 			<c:otherwise>
@@ -23,12 +23,12 @@
 			</c:otherwise>
 		</c:choose>
 	</c:forEach>
-	<c:if test="${endPage < pageCount}">
-		<li><a href="${search}${startPage + pageBlock}">다음</a></li>
+	<c:if test="${pagingVO.endPage < pagingVO.pageCount}">
+		<li><a href="${search}${pagingVO.startPage + pagingVO.pageBlock}">다음</a></li>
 	</c:if>
 	
 	<li>
-      <a href="${search}${endPage}" aria-label="Next">
+      <a href="${search}${pagingVO.endPage}" aria-label="Next">
         <span aria-hidden="true">&raquo;</span>
       </a>
     </li>

@@ -22,8 +22,10 @@
 	        <li id="dropdown" class="dropdown">
 	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Menu<span class="caret"></span></a>
 	          <ul class="dropdown-menu" role="menu">
+	           <c:if test="${sessionID ne null}">
 	            <li id="banner"><a href="${pageContext.request.contextPath}/banner/select.do">Banner</a></li>
 	            <li class="divider"></li>
+	           </c:if> 
 	            <li id="notice"><a href="${pageContext.request.contextPath}/notice/select.do">Notice</a></li>
 	            <li class="divider"></li>
 	            <li id="event"><a href="${pageContext.request.contextPath}/event/select.do">Event</a></li>
@@ -36,9 +38,9 @@
 	      <form class="navbar-form navbar-left" role="search" action="${pageContext.request.contextPath}/movie/select.do">
 	        <div class="form-group">
 	        	 <select class="form-control" name="keyWord">
-					  <option value="m_title">영화제목</option>
-					  <option value="m_kind">장르</option>
-					  <option value="m_grade">등급</option>
+					  <option value="m_title" <c:if test="${pagingVO.keyWord eq 'm_title' }">selected</c:if>>영화제목</option>
+					  <option value="m_kind" <c:if test="${pagingVO.keyWord eq 'm_kind' }">selected</c:if>>장르</option>
+					  <option value="m_grade" <c:if test="${pagingVO.keyWord eq 'm_grade' }">selected</c:if>>등급</option>
 				 </select>
 				 <input type="text" name="keyValue" class="form-control" placeholder="검색할 단어를 입력하세요." id="m_title">
 				 <select class="form-control" name="keyValue" style="display: none" id="m_kind">
@@ -102,6 +104,19 @@
    	  $("#logoutIframe").attr("src", "http://nid.naver.com/nidlogin.logout");
 	  setTimeout("location.href='${root}/naverLogout.do'", 1000);
    	}
+    
+	var category='${pagingVO.keyWord}';
+	if(category == "m_title"){
+		$("#m_kind, #m_grade").removeAttr('name').hide();
+		$("#m_title").attr("name","keyValue").show();
+	}else if(category == "m_kind"){
+		$("#m_title, #m_grade").removeAttr('name').hide();
+		$("#m_kind").attr("name","keyValue").show();
+	}else if(category == "m_grade"){
+		$("#m_title, #m_kind").removeAttr('name').hide();
+		$("#m_grade").attr("name","keyValue").show();
+	}
+	
     
     $("select[name=keyWord]").change(function(){
     	var selected=$("select[name=keyWord] option:selected").val();

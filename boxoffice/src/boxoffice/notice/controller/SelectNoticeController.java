@@ -58,11 +58,7 @@ public class SelectNoticeController extends HttpServlet{
 			request.setAttribute("total", total);
 			request.setAttribute("list", list);
 			request.setAttribute("search", search);
-			request.setAttribute("pageNum", pagingVO.getPageNum());
-			request.setAttribute("pageBlock", pagingVO.getPageBlock());
-			request.setAttribute("pageCount", pagingVO.getPageCount());
-			request.setAttribute("endPage", pagingVO.getEndPage());
-			request.setAttribute("startPage", pagingVO.getStartPage());
+			request.setAttribute("pagingVO", pagingVO);
 			request.setAttribute("url", request.getRequestURL().toString()); 
 			
 			RequestDispatcher dispatcher=request.getRequestDispatcher("/view/notice/selectNotice.jsp");
